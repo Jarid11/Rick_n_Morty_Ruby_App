@@ -5,7 +5,7 @@ characters = []
 
 
 get "/test" do
-  characters.to_json
+  characters
 end
 
 get "/chars" do
@@ -15,14 +15,12 @@ get "/chars" do
   characters
 end
 
-#add id to new post
 # make sure I can edit the new post added also
 
 post "/addChar" do
-  char = params[:char]
   newArr = JSON.parse(characters)
-  newArr.push(char)
-  newArr.to_json
+  newArr.push(params[:char])
+  characters = newArr.to_json
 end
 
 
@@ -39,4 +37,8 @@ put "/editChar" do
   characters = newArr.to_json
 end
 
-# make delete endpoint
+delete "/dltChar" do
+  newArr = JSON.parse(characters)
+  newArr.slice!(params[:id].to_i - 1)
+  characters = newArr.to_json
+end
