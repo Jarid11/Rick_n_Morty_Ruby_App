@@ -31,14 +31,19 @@ put "/editChar" do
   newArr = JSON.parse(characters)
   newArr.each do |key|
     if key["id"] == params[:id].to_i
-      key["name"] = params[:name].to_s
+      key["name"] = params[:name]
     end
   end
   characters = newArr.to_json
 end
 
+
+#fix to delete to delete the object by id not index
+# deleting by index breaks because the index shift after an item is deleted
 delete "/dltChar" do
   newArr = JSON.parse(characters)
   newArr.slice!(params[:id].to_i - 1)
   characters = newArr.to_json
 end
+
+# check JSON 
