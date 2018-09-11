@@ -42,7 +42,13 @@ end
 # deleting by index breaks because the index shift after an item is deleted
 delete "/dltChar" do
   newArr = JSON.parse(characters)
-  newArr.slice!(params[:id].to_i - 1)
+  i = 0
+  newArr.each do |key|
+    if key["id"] == params[:id].to_i
+      newArr.slice!(i)
+    end
+    i += 1
+  end
   characters = newArr.to_json
 end
 
